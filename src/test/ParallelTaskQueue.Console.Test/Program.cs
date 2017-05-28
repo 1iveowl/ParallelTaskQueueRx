@@ -12,120 +12,71 @@ namespace ParallelTaskQueue.Console.Test
             var parallelTaskQueue = new ParallelTaskQueueRx<string>();
 
             var disp = parallelTaskQueue.ObservableResults.Subscribe(
-                s =>
-                {
-                    System.Console.WriteLine(s);
-
-                },
+                System.Console.WriteLine,
                 ex => {System.Console.WriteLine($"Error: {ex.Message}");},
                 () => {System.Console.WriteLine("Compleded");});
 
             Start(parallelTaskQueue);
 
             System.Console.ReadKey();
-
         }
 
         private static async void Start(ParallelTaskQueueRx<string> parallelTaskQueue)
         {
-            parallelTaskQueue.ProcessTaskOnMyQueue(async () =>
+            parallelTaskQueue.ProcessTaskOnSpecificQueue(async () =>
                 {
                     await Task.Delay(TimeSpan.FromSeconds(1));
-                    return "1.1";
-                }, 
-                "Error",
-                "1");
+                    return "Queue1: #1 (1 sec delay)";
+                },"Queue1");
 
-            parallelTaskQueue.ProcessTaskOnMyQueue(async () =>
+            parallelTaskQueue.ProcessTaskOnSpecificQueue(async () =>
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
-                    return "2.1";
-                },
-                "Error",
-                "2");
+                    return "Queue2: #1 (0,25 sec delay)";
+                },"Queue2");
 
+            System.Console.WriteLine("----Waiting 0,25 sec----");
             await Task.Delay(TimeSpan.FromMilliseconds(250));
 
-            parallelTaskQueue.ProcessTaskOnMyQueue(async () =>
+            parallelTaskQueue.ProcessTaskOnSpecificQueue(async () =>
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
-                    return "1.2";
-                },
-                "Error",
-                "1");
+                    return "Queue1: #2 (0,25 sec delay)";
+                },"Queue 1");
 
-            parallelTaskQueue.ProcessTaskOnMyQueue(async () =>
+            parallelTaskQueue.ProcessTaskOnSpecificQueue(async () =>
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(1250));
-                    return "2.2";
-                },
-                "Error",
-                "2");
+                    return "Queue2 2 (1,25 sec delay)";
+                },"Queue2");
 
-            parallelTaskQueue.ProcessTaskOnMyQueue(() =>
-                {
-                    return Task.FromResult("2.3");
+            parallelTaskQueue.ProcessTaskOnSpecificQueue(() => Task.FromResult("Queue2 #3 (no delay)"),"Queue2");
 
-                },
-                "Error",
-                "2");
-            parallelTaskQueue.ProcessTaskOnMyQueue(() =>
-                {
-                    return Task.FromResult("2.4");
-                },
-                "Error",
-                "2");
+            parallelTaskQueue.ProcessTaskOnSpecificQueue(() => Task.FromResult("Queue2 #4 (no delay)"),"Queue2");
 
+            System.Console.WriteLine("----Waiting 5 sec----");
             await Task.Delay(TimeSpan.FromSeconds(5));
 
-            parallelTaskQueue.ProcessTaskOnMyQueue(async () =>
+            parallelTaskQueue.ProcessTaskOnSpecificQueue(async () =>
                 {
                     await Task.Delay(TimeSpan.FromSeconds(1));
-                    return "1.3";
-                },
-                "Error",
-                "1");
+                    return "Queue1 #3 (1 sec delay)";
+                },"Queue1");
 
-            parallelTaskQueue.ProcessTaskOnMyQueue(async () =>
+            parallelTaskQueue.ProcessTaskOnSpecificQueue(async () =>
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
-                    return "2.5";
-                },
-                "Error",
-                "2");
+                    return "Queue2 #5 (0,25 sec delay)";
+                },"Queue2");
 
+            System.Console.WriteLine("----Waiting 0,25 sec----");
             await Task.Delay(TimeSpan.FromMilliseconds(250));
 
-            parallelTaskQueue.ProcessTaskOnMyQueue(async () =>
+            parallelTaskQueue.ProcessTaskOnSpecificQueue(async () =>
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
-                    return "1.4";
-                },
-                "Error",
-                "1");
-
-            parallelTaskQueue.ProcessTaskOnMyQueue(async () =>
-                {
-                    await Task.Delay(TimeSpan.FromMilliseconds(1250));
-                    return "2.6";
-                },
-                "Error",
-                "2");
-
-            parallelTaskQueue.ProcessTaskOnMyQueue(() =>
-                {
-                    return Task.FromResult("2.6");
-
-                },
-                "Error",
-                "2");
-            parallelTaskQueue.ProcessTaskOnMyQueue(() =>
-                {
-                    return Task.FromResult("2.8");
-                },
-                "Error",
-                "2");
-
+                    return "Queue1 #4 (0,25 sec delay)";
+                },"Queue1");
         }
     }
 }
