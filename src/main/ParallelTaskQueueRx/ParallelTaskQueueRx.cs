@@ -57,10 +57,6 @@ namespace ParallelTaskQueueRx
                             ObserverReturnValue.OnNext(result);
                         }
                     }
-                    catch (InvalidOperationException)
-                    {
-                        break;
-                    }
                     catch (Exception ex)
                     {
                         lock (ObserverReturnValue)
