@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace IParallelTaskQueueRx
 {
-    public interface IParallelTaskQueueRx<TReturnValue>
+    public interface IParallelTaskQueueRx<TReturnValue> : IDisposable
     {
         IObservable<TReturnValue> ObservableResults { get; }
 
