@@ -9,7 +9,6 @@ namespace IParallelTaskQueueRx
 
         void ProcessTaskOnMyQueue(
             Func<Task<TReturnValue>> myTask,
-            TReturnValue errorReturnValue,
             string queueId);
     }
 }
