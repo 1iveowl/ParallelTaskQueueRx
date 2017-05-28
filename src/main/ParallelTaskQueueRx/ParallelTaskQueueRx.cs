@@ -33,7 +33,7 @@ namespace ParallelTaskQueueRx
 
                 _queueDirectory[queueId].Add(myTask);
 
-                ProcessQueue(queueId);
+                ProcessQueue(queueId, errorReturnValue);
             }
             else
             {
@@ -42,7 +42,7 @@ namespace ParallelTaskQueueRx
             }
         }
 
-        private void ProcessQueue(string queueId)
+        private void ProcessQueue(string queueId, TReturnValue errorReturnValue)
         {
             Task.Run(async () =>
             {
@@ -66,7 +66,7 @@ namespace ParallelTaskQueueRx
                     {
                         lock (ObserverReturnValue)
                         {
-                            ObserverReturnValue.OnError(ex);
+                            ObserverReturnValue.OnNext(errorReturnValue);
                         }
                     }
                 }
