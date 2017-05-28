@@ -7,7 +7,7 @@ namespace IParallelTaskQueueRx
     {
         IObservable<TReturnValue> ObservableResults { get; }
 
-        void ProcessTaskOnMyQueue(
+        void ProcessTaskOnSpecificQueue(
             Func<Task<TReturnValue>> myTask,
             string queueId);
     }

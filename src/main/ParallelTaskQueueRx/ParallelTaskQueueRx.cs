@@ -20,7 +20,7 @@ namespace ParallelTaskQueueRx
 
         public IObservable<TReturnValue> ObservableResults => _subjectReturnValue.AsObservable();
 
-        public void ProcessTaskOnMyQueue(
+        public void ProcessTaskOnSpecificQueue(
             Func<Task<TReturnValue>> myTask, 
             string queueId)
         {
