@@ -1,15 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelTaskQueueRx", "ParallelTaskQueueRx.csproj", "{8117BB21-7D8C-476A-BE2E-CF85E0374AD5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{AFE6E69C-BFDB-43AC-BF3F-3EBB04F9F805}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\README.md = ..\..\..\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interface", "Interface", "{720EC305-08AD-4ACB-807B-CF023FD70488}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{96C9A24D-8A9A-49A8-8BB9-956DB2BDAB80}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\build\build.ps1 = ..\..\build\build.ps1
+		..\..\build\ParallelTaskQueueRx.nuspec = ..\..\build\ParallelTaskQueueRx.nuspec
+		..\..\build\publish.ps1 = ..\..\build\publish.ps1
+		..\..\build\publishLocal.ps1 = ..\..\build\publishLocal.ps1
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main", "Main", "{18266486-00ED-4584-A49A-E9EBEC249CE2}"
 EndProject

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>ParallelTaskQueueRx</id>
+        <version>0</version>
+        <authors>1iveowl</authors>
+        <owners>Jasper H. Bojsen</owners>
+        <licenseUrl>https://github.com/1iveowl/ParallelTaskQueueRx/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/1iveowl/ParallelTaskQueueRx</projectUrl>
+        <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Parallel Task Queue Reactive Extensions - .NET Standard Library
+    
+Simple way to process tasks in parallel queues</description>
+        <releaseNotes>
+</releaseNotes>
+        <copyright>Copyright 1iveowl 2017</copyright>
+        <tags>.net standard, .net,  netcore, rx, reactive extensions, parallel, tasks
+        </tags>
+        
+        <dependencies>
+          <dependency id="System.Reactive" version="3.1.1"/>
+        </dependencies>
+
+    </metadata>
+    
+    <files>
+        <file src="..\main\ParallelTaskQueueRx\bin\Release\netstandard1.2\ParallelTaskQueueRx.*" target="lib\netstandard1.2\" />
+      <file src="..\interface\IParallelTaskQueueRx\bin\Release\netstandard1.2\IParallelTaskQueueRx.*" target="lib\netstandard1.2\" />
+    </files>
+</package>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Threading.Tasks;
 using IParallelTaskQueueRx;
 using ParallelTaskQueueRx;
@@ -14,7 +15,7 @@ namespace ParallelTaskQueue.Console.Test
             var disp = parallelTaskQueue.ObservableResults.Subscribe(
                 System.Console.WriteLine,
                 ex => {System.Console.WriteLine($"Error: {ex.Message}");},
-                () => {System.Console.WriteLine("Compleded");});
+                () => {System.Console.WriteLine("Completed");});
 
             Start(parallelTaskQueue);
 
@@ -42,7 +43,8 @@ namespace ParallelTaskQueue.Console.Test
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
                     return "Queue1: #2 (0,25 sec delay)";
-                },"Queue 1");
+                },"Queue" +
+                  "1");
 
             parallelTaskQueue.ProcessTaskOnSpecificQueue(async () =>
                 {

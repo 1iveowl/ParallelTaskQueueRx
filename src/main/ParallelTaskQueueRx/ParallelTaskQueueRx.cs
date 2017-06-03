@@ -24,6 +24,7 @@ namespace ParallelTaskQueueRx
             Func<Task<TReturnValue>> myTask, 
             string queueId)
         {
+
             if (!_queueDirectory.ContainsKey(queueId))
             {
                 Debug.WriteLine($"Creating Queue: {queueId}");
@@ -47,35 +48,30 @@ namespace ParallelTaskQueueRx
             {
                 while (_queueDirectory[queueId].Count > 0)
                 {
+                    var task = _queueDirectory[queueId].Take();
+                    TReturnValue result;
+
                     try
                     {
-                        var task = _queueDirectory[queueId].Take();
-                        var result = await task();
-
-                        lock (ObserverReturnValue)
-                        {
-                            ObserverReturnValue.OnNext(result);
-                        }
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        break;
+                        result = await task();
                     }
                     catch (Exception ex)
                     {
                         lock (ObserverReturnValue)
                         {
                             ObserverReturnValue.OnError(ex);
+                            continue;
                         }
+                    }
+
+                    lock (ObserverReturnValue)
+                    {
+                        ObserverReturnValue.OnNext(result);
                     }
                 }
 
                 _queueDirectory[queueId].CompleteAdding();
-
-                lock (_queueDirectory)
-                {
-                    _queueDirectory.Remove(queueId);
-                }
+                _queueDirectory.Remove(queueId);
 
                 Debug.WriteLine($"Removing Queue: {queueId}");
 
@@ -85,7 +81,6 @@ namespace ParallelTaskQueueRx
         public void Dispose()
         {
             _queueDirectory.Clear();
-
             ObserverReturnValue.OnCompleted();
         }
     }
