@@ -11,4 +11,4 @@ else {
 
 NuGet.exe pack ParallelTaskQueueRx.nuspec -Verbosity detailed -Symbols -OutputDir "NuGet" -Version $version
 
-Nuget.exe push .\Nuget\ParallelTaskQueueRx.nuspec.$version.nupkg -Source https://www.nuget.org
+Nuget.exe push .\Nuget\ParallelTaskQueueRx.$version.nupkg -Source https://www.nuget.org
